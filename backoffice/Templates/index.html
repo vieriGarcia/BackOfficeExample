@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    {% include "sources/sources.html" with bootstrap=1 %}
+    <script src="/static/js/dashboard.js" ></script>
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div id="page-loader"><span class="preloader-interior"></span></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <ul>
+            <li><a href="/backoffice/dashboard/pedidos">Pedidos</a></li>
+            <li><a href="/backoffice/dashboard/productos">Productos</a></li>
+            <li><a href="/backoffice/dashboard/clientes">Clientes</a></li>
+            <li><a id="logout-op">Cerrar Sesión</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="row ">
+        <div id="content"class="col-12" style="padding-top: 70px;background-color: #FFFFFF;">
+          {% block content %}
+
+          {% endblock %}
+        </div>      
+      </div>
+    </div>
+    
+  </body>
+</html>
