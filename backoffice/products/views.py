@@ -1,7 +1,7 @@
 from django.shortcuts import render
 #Rest Framework
 from rest_framework.decorators import  permission_classes, action
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, pagination
 from rest_framework.response import Response
 from rest_framework import permissions
 #Models
@@ -101,3 +101,24 @@ class ProductViewSet(viewsets.ModelViewSet):
     	products= self.queryset.filter(slug__exact=slug)
     	serializer = products_serializers.ProductModelSerializer(products, many=True)
     	return Response(serializer.data)
+    @action(detail=True)
+    def order(self, request):
+        products_order=request.data.getlist('products_order_ids')#QueryDict
+        products= self.queryset
+        i=1
+        for product_id in products_order:        
+            c=products.get(id__exact=product_id)
+            c.order=i
+            c.save()
+            i=i+1
+        serializer = products_serializers.ProductModelSerializer(products, many=True)
+        return Response(serializer.data)
+#API PRODUCT
+class ProductPaginatedViewSet(viewsets.ModelViewSet):
+    queryset = models.Product.objects.all()
+    serializer_class = products_serializers.ProductModelSerializer
+    pagination_class = pagination.PageNumberPagination
+    page_size=2
+    #permission_classes = (permissions.AllowAny)
+    def pre_save(self, obj):
+        obj.owner = self.request.user

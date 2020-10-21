@@ -20,17 +20,17 @@ $(document).ready( function () {
     } );
    //Definir la tabla
     var table = $('#tabla-cliente').DataTable({
-        "paging": true,
-        orderCellsTop: true,
-        fixedHeader: true,
+        //"paging": true,
+        //orderCellsTop: true,
+        //fixedHeader: true,
         //"processing": true,
         //"serverSide": true,
         "ajax":{
-            url: "/api/v1/client/",
-            method: 'get',
+            url: "/api/v1/client/?format=datatables",
+            method: 'GET',
             dataType:'json',
             data: function(args) { 
-                console.log("Holi")
+                console.log(args)
              return {
                 "args": JSON.stringify(args)
                 };

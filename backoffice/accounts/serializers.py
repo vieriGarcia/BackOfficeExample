@@ -43,6 +43,9 @@ class UserLogoutSerializer(serializers.Serializer):
         logout()
 # CLIENT SERIALIZERS
 class ClientModelSerializer(serializers.ModelSerializer):
+    first_name=serializers.CharField(source='user.first_name', read_only=True)
+    last_name=serializers.CharField(source='user.last_name', read_only=True)
     class Meta:
         model = models.Client
-        fields = '__all__'
+        fields = ('id','user','phone_number','first_name','last_name')
+        datatables_always_serialize = ('id','user','phone_number','first_name','last_name')

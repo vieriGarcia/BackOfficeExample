@@ -33,6 +33,8 @@ class Product(TimeStampedModel):
 	order = models.PositiveSmallIntegerField(null=True)
 	price =models.DecimalField(decimal_places=2,max_digits=6)
 	slug= AutoSlugField(populate_from='name')
+	class Meta:
+		ordering = ['id']   
 
 class Stock(TimeStampedModel):
 	id = models.AutoField(primary_key=True)

@@ -26,10 +26,11 @@ from accounts import serializers as account_serializers
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = account_serializers.UserModelSerializer
-    #permission_classes = (permissions.AllowAny)
+    #permission_classes = [permissions.IsAuthenticated]
     def pre_save(self, obj):
         obj.owner = self.request.user
     @action(detail=True)
+    @permission_classes([permissions.AllowAny])
     def login(self,request):
     	payload=json.loads(request.body)
     	serializer = account_serializers.UserLoginSerializer(data=payload)
@@ -39,6 +40,7 @@ class UserViewSet(viewsets.ModelViewSet):
     	data = {'token': token}
     	return Response(data)
     @action(detail=True)
+    @permission_classes([permissions.IsAuthenticated])
     def logout(self,request):
     	serializer = account_serializers.UserLogoutSerializer(data={})
     	serializer.is_valid(raise_exception=True)
@@ -52,4 +54,5 @@ class ClientViewSet(viewsets.ModelViewSet):
     #permission_classes = (permissions.AllowAny)
     def pre_save(self, obj):
         obj.owner = self.request.user
-    
+    #class Meta:
+        #datatables_extra_json = ('get', )

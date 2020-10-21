@@ -57,6 +57,12 @@ product_offer_latests = views.ProductViewSet.as_view({
 product_get_by_slug = views.ProductViewSet.as_view({
     'get': 'get_by_slug',
 })
+product_paginated = views.ProductPaginatedViewSet.as_view({
+    'post': 'list',
+})
+product_order = views.ProductViewSet.as_view({
+    'post': 'order',
+})
 #Views API STOCK
 stock_list = views.StockViewSet.as_view({
     'get': 'list',
@@ -93,6 +99,8 @@ urlpatterns = [
     url(r'^api/v1/product/$', product_list, name='cproductlist'),
     url(r'^api/v1/product/(?P<pk>\d+)$', product_index, name='product-detail'),
     url(r'^api/v1/product/get_by_slug/$', product_get_by_slug, name='product-get-by-slug'),
+    url(r'^api/v1/product/to_page/$', product_paginated, name='product-to-page'),
+    url(r'^api/v1/product/order/$', product_order, name='product-order'),
     #API STOCK
     url(r'^api/v1/stock/$', stock_list, name='stock-list'),
     url(r'^api/v1/stock/(?P<pk>\d+)$', stock_index, name='stock-detail'),
