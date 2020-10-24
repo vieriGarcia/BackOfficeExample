@@ -42,13 +42,21 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'sales',
-    'products'
+    'products',
+    'rest_registration',
 ]
 
 REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'rest_framework.views.exception_handler',
     #'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     #'PAGE_SIZE': 2
+}
+
+REST_REGISTRATION = {
+    'REGISTER_VERIFICATION_ENABLED': False,
+    'REGISTER_EMAIL_VERIFICATION_ENABLED': False,
+    'RESET_PASSWORD_VERIFICATION_ENABLED': False,
+    'VERIFICATION_FROM_EMAIL': 'backofficeExample@gmail.com',
 }
 
 MIDDLEWARE = [
@@ -146,3 +154,4 @@ EMAIL_USE_TLS=True
 EMAIL_PORT=587
 EMAIL_HOST_USER="backofficeExample@gmail.com"
 EMAIL_HOST_PASSWORD="backOffice123"
+EMAIL_FILE_PATH  =  str ( os.path.join(BASE_DIR ,'sent_emails' ))

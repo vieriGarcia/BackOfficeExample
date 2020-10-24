@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 #Rest Framework
 from rest_framework.decorators import  permission_classes, action
 from rest_framework import viewsets, status, pagination
@@ -17,6 +18,10 @@ class ColorViewSet(viewsets.ModelViewSet):
     #permission_classes = (permissions.AllowAny)
     def pre_save(self, obj):
         obj.owner = self.request.user
+    def list(self, request):
+        colors=models.Color.objects.all()
+        serializer = products_serializers.ColorModelSerializer(colors, many=True)
+        return JsonResponse({'data': serializer.data}, safe=False, status=status.HTTP_200_OK)
     @action(detail=True)
     def get_latests_colors(self, request):
         colors= self.queryset.order_by('-created')[:10]
@@ -30,6 +35,10 @@ class CategoryViewSet(viewsets.ModelViewSet):
     #permission_classes = (permissions.AllowAny)
     def pre_save(self, obj):
         obj.owner = self.request.user
+    def list(self, request):
+        categories=models.Category.objects.all()
+        serializer = products_serializers.CategoryModelSerializer(categories, many=True)
+        return JsonResponse({'data': serializer.data}, safe=False, status=status.HTTP_200_OK)
     @action(detail=True)
     def get_latests_categories(self, request):
         categories= self.queryset.order_by('-created')[:10]
@@ -43,16 +52,16 @@ class CategoryViewSet(viewsets.ModelViewSet):
     	return Response(serializer.data)
     @action(detail=True)
     def order(self, request):
-    	categories_order=request.data.getlist('categories_order_ids')#QueryDict
-    	categories= self.queryset
-    	i=1
-    	for category_id in categories_order: 		
-    		c=categories.get(id__exact=category_id)
-    		c.order=i
-    		c.save()
-    		i=i+1
-    	serializer = products_serializers.CategoryModelSerializer(categories, many=True)
-    	return Response(serializer.data)
+        categories_order=request.data.getlist('categories_order_ids')#QueryDict
+        categories= self.queryset
+        i=1
+        for category_id in categories_order:
+            c=categories.get(id__exact=category_id)
+            c.order=i
+            c.save()
+            i=i+1
+        serializer = products_serializers.CategoryModelSerializer(categories, many=True)
+        return Response(serializer.data)
 
 #API STOCK
 class StockViewSet(viewsets.ModelViewSet):
@@ -80,9 +89,9 @@ class ProductViewSet(viewsets.ModelViewSet):
     def list(self, request):
     	category=request.GET.get('category', 0)
     	if int(category) >0:
-    		products = self.queryset.filter(category_id=int(category))
+    		products = models.Product.objects.all().filter(category_id=int(category))
     	else:
-    		products = self.queryset
+    		products = models.Product.objects.all()
     	serializer = products_serializers.ProductModelSerializer(products, many=True)
     	return Response(serializer.data)
     @action(detail=True)

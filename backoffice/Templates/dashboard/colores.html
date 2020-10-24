@@ -1,14 +1,15 @@
 {% extends "index.html" %}
 {% block content %}
+<script src="/static/js/colores.js" ></script>
 <div class="row" style="margin-bottom: 2%;margin-top: 2%;" >
     <div class="col-1"></div>
     <div class="card col-10" style="padding-left: 0;padding-right: 0;box-shadow: -1px 3px 18px -2px rgba(1,7,15,0.33);">
-      <div class="card-header " style="color:#1D1D1D;display:flex;">
-        <h5>Clientes</h5>
-        <!--<button type="button" class="btn btn-success button-mantenimiento" data-toggle="modal" data-target="#modal-credito" data-whatever="Agregar" >+ Cliente</button>-->
+      <div class="card-header d-flex " style="color:#1D1D1D;display:flex;">
+        <h5>Colores</h5>
+        <button type="button" class="ml-auto btn btn-success" data-toggle="modal" data-target="#modal-color" data-whatever="Agregar" >+ Color</button>
       </div>
       <div class="card-body overflow-auto">
-        <table id="tabla-producto" class="table display" style="margin:10;">
+        <table id="tabla-color" class="table display" style="margin:10;">
             <thead>
               <tr>
                 {% for col in columnas %}
@@ -35,7 +36,7 @@
     <div class="col-1"></div>
 </div>
 <!--Modal Agregar y Actualizar-->
-<div class="modal fade" id="modal-credito" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-color" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -48,34 +49,25 @@
       <div class="modal-body overflow-auto">
         <form id="form-credito" >{% csrf_token %}
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Nombres:</label>
-            <input type="text" class="form-control" id="nombres" name="nombres">
+            <label for="recipient-name" class="col-form-label">Nombre:</label>
+            <input type="text" class="form-control" id="name" name="nombres">
           </div>
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Apellidos:</label>
-            <input type="text" class="form-control" id="apellidos" name="apellidos">
+            <label for="recipient-name" class="col-form-label">Código Hex:</label>
+            <input type="text" class="form-control" id="hex_code" name="apellidos">
           </div>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Rol de Crédito:</label>
-            <select class="custom-select" id="tipo_credito" name="tipo_credito">
-            </select>
-          </div>
-          <!--<div class="form-group">
-            <label id="label_saldo" for="recipient-name" class="col-form-label">Saldo Acreedor (S/.):</label>
-            <input type=number step=any class="form-control" id="saldo_credito" name="saldo_credito">
-          </div>-->
         </form>
         
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="submit" class="btn btn-primary" id="submit_modal_credito"></button>
+        <button type="submit" class="btn btn-primary" id="submit_modal_color"></button>
       </div>
     </div>
   </div>
 </div>
 <!--Modal Eliminar-->
-<div class="modal fade" id="modal-credito-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-color-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header" style="background-color: #F8DDD9;">
@@ -89,7 +81,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-danger" id="submit-delete-credito">Eliminar</button>
+        <button type="button" class="btn btn-danger" id="submit-delete-color">Eliminar</button>
       </div>
     </div>
   </div>

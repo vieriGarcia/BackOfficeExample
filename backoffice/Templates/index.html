@@ -5,8 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    {% include "sources/sources.html" with bootstrap=1 %}
+    {% include "sources/sources.html" with bootstrap=1 utils=1 %}
     <script src="/static/js/dashboard.js" ></script>
+    <script src="https://kit.fontawesome.com/2abea58745.js" crossorigin="anonymous"></script>
     <title>Hello, world!</title>
   </head>
   <body>
@@ -16,7 +17,7 @@
         <div class="col-12">
           <ul>
             <li><a href="/backoffice/dashboard/pedidos">Pedidos</a></li>
-            <li><a href="/backoffice/dashboard/productos">Productos</a></li>
+            <li><a href="/backoffice/dashboard/productos/productos">Productos</a></li>
             <li><a href="/backoffice/dashboard/clientes">Clientes</a></li>
             <li><a id="logout-op">Cerrar Sesión</a></li>
           </ul>
@@ -24,6 +25,19 @@
       </div>
       <div class="row ">
         <div id="content"class="col-12" style="padding-top: 70px;background-color: #FFFFFF;">
+          {% include "sources/sources.html" with datatable=1 %}
+          {% if products_panel  %}
+          <div class="row" style="margin-bottom: 2%;margin-top: 2%;" >
+            <div class="col-1"></div>
+             <div class="card col-10" style="padding-left: 0;padding-right: 0;box-shadow: -1px 3px 18px -2px rgba(1,7,15,0.33);">
+              <div class="card-body overflow-auto row">
+                <div class="col-4"><a class=" btn btn-primary" href="/backoffice/dashboard/productos/productos" style="width: 100%">Productos</a></div>
+                <div class="col-4"><a class="btn btn-primary" href="/backoffice/dashboard/productos/categorias" style="width: 100%">Categorias</a></div>
+                <div class="col-4"><a class="btn btn-primary" href="/backoffice/dashboard/productos/colores" style="width: 100%">Colores</a></div>
+              </div>
+             </div>
+          </div>
+          {% endif %}
           {% block content %}
 
           {% endblock %}

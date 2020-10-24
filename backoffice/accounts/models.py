@@ -29,3 +29,4 @@ class Client(TimeStampedModel):
 class Employee(TimeStampedModel):
 	id = models.AutoField(primary_key=True)
 	user =models.OneToOneField(User,on_delete=models.CASCADE)
+

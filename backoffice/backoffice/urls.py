@@ -25,7 +25,9 @@ urlpatterns = [
     path('', views.login),
     path('backoffice/login/', views.login),
     path('backoffice/dashboard/pedidos', views.pedidos),
-    path('backoffice/dashboard/productos', views.productos),
+    path('backoffice/dashboard/productos/productos', views.productos),
+    path('backoffice/dashboard/productos/colores', views.colores),
+    path('backoffice/dashboard/productos/categorias', views.categorias),
     path('backoffice/dashboard/clientes', views.clientes),
     #Account's paths
     path('', include(('accounts.urls', 'accounts'), namespace='accounts')),

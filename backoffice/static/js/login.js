@@ -14,19 +14,31 @@ $(document).ready( function () {
     });
     signin_button.click(function(){
         if (signin_button.text()=="Ingresar"){
-
-            $.ajax({
+            $(function() {
+                $.ajax({
                 url: '/api/v1/login/employee/',
                 method: 'POST',
                 data: JSON.stringify({ "username":username.val(),"password":password.val()}),
                 success: function(data,status) {
                     if(status=="success"){
-                        window.location.replace ("/backoffice/dashboard/productos");
-                    }else{
-                        alert('Mal ... :c ')
-                    }  
-                }
-            });
+                        window.location.replace ("/backoffice/dashboard/productos/productos");
+                    } 
+                },
+                error: function(e) {
+                   mensaje='Asegurese de ingresar o de que sea correcto lo siguiente:'
+                   for (x in e.responseJSON){
+                    if (x=="non_field_errors"){
+                        mensaje=x[0]
+                    }
+                    mensaje=mensaje+' '+x
+                   }
+                    toast_crud("Inicio de Sesión Fallido",mensaje,2);
+                  },
+
+            })
+
+            })
+            ;
         }else if (signin_button.text()=="Recuperar contraseña"){
         
         }
